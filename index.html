@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Imamhusen Kalibai — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0F1B2D;
+    --bg-panel:#16253D;
+    --line:#2A3B54;
+    --accent:#FFB100;
+    --ink:#F2EFE9;
+    --muted:#94A3B8;
+    --completed:#34D399;
+    --progress:#F59E0B;
+    --teal:#2EC4B6;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', -apple-system, sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3,.brand{
+    font-family:'Space Grotesk', sans-serif;
+  }
+  a{color:var(--teal);}
+  @media (prefers-reduced-motion: reduce){
+    *{animation:none !important; transition:none !important;}
+  }
+
+  /* Hero */
+  .hero{
+    max-width:900px;
+    margin:0 auto;
+    padding:64px 28px 40px;
+    opacity:0;
+    animation:rise .7s ease-out forwards;
+  }
+  .hero .role{
+    color:var(--accent);
+    font-size:0.95rem;
+    font-weight:500;
+    margin:0 0 10px;
+  }
+  .hero h1{
+    font-size:clamp(2.2rem, 6vw, 3.4rem);
+    font-weight:700;
+    margin:0 0 14px;
+    letter-spacing:-0.01em;
+  }
+  .hero p{
+    max-width:60ch;
+    color:var(--muted);
+    font-size:1.05rem;
+    margin:0;
+  }
+
+  /* Route line layout */
+  .route{
+    max-width:900px;
+    margin:0 auto;
+    padding:0 28px 80px;
+    position:relative;
+  }
+  .route::before{
+    content:"";
+    position:absolute;
+    left:28px;
+    top:0;
+    bottom:60px;
+    width:3px;
+    background:var(--line);
+    border-radius:2px;
+  }
+  @media (min-width:640px){
+    .route::before{left:40px;}
+  }
+
+  .stop{
+    position:relative;
+    padding-left:64px;
+    margin-bottom:56px;
+    opacity:0;
+    animation:rise .7s ease-out forwards;
+  }
+  @media (min-width:640px){
+    .stop{padding-left:88px;}
+  }
+  .stop:nth-of-type(1){animation-delay:.15s;}
+  .stop:nth-of-type(2){animation-delay:.28s;}
+  .stop:nth-of-type(3){animation-delay:.41s;}
+  .stop:nth-of-type(4){animation-delay:.54s;}
+
+  .stop-marker{
+    position:absolute;
+    left:20px;
+    top:4px;
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:var(--bg);
+    border:3px solid var(--accent);
+  }
+  @media (min-width:640px){
+    .stop-marker{left:32px;}
+  }
+
+  .stop h2{
+    font-size:1.5rem;
+    margin:0 0 18px;
+    font-weight:600;
+  }
+
+  /* About */
+  .about-grid{
+    display:grid;
+    gap:10px;
+    color:var(--muted);
+  }
+  .about-grid strong{color:var(--ink); font-weight:500;}
+
+  /* Skills */
+  .skill-group{
+    margin-bottom:20px;
+  }
+  .skill-group h3{
+    font-size:0.85rem;
+    font-weight:500;
+    color:var(--muted);
+    margin:0 0 10px;
+  }
+  .chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  .chip{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    color:var(--ink);
+    padding:6px 14px;
+    border-radius:8px;
+    font-size:0.9rem;
+  }
+
+  /* Projects */
+  .project{
+    background:var(--bg-panel);
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:24px;
+    margin-bottom:20px;
+  }
+  .project-head{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom:6px;
+  }
+  .project-head h3{
+    margin:0;
+    font-size:1.15rem;
+    font-weight:600;
+  }
+  .badge{
+    font-size:0.78rem;
+    font-weight:500;
+    padding:3px 10px;
+    border-radius:20px;
+    white-space:nowrap;
+  }
+  .badge.completed{ color:var(--completed); background:rgba(52,211,153,0.12); border:1px solid rgba(52,211,153,0.35); }
+  .badge.progress{ color:var(--progress); background:rgba(245,158,11,0.12); border:1px solid rgba(245,158,11,0.35); }
+
+  .project .tagline{
+    color:var(--muted);
+    font-size:0.92rem;
+    margin:0 0 14px;
+  }
+  .project ul{
+    margin:0 0 14px;
+    padding-left:20px;
+    color:var(--ink);
+  }
+  .project ul li{margin-bottom:6px;}
+  .stack{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:12px;
+  }
+  .stack span{
+    font-size:0.8rem;
+    color:var(--muted);
+    border:1px solid var(--line);
+    padding:3px 10px;
+    border-radius:6px;
+  }
+
+  /* Contact */
+  .contact-list{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .contact-item{
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .contact-item .label{
+    color:var(--muted);
+    min-width:80px;
+    font-size:0.9rem;
+  }
+  .contact-item a{
+    font-size:1rem;
+    word-break:break-all;
+  }
+
+  footer{
+    text-align:center;
+    color:var(--line);
+    font-size:0.8rem;
+    padding-bottom:40px;
+  }
+
+  @keyframes rise{
+    from{opacity:0; transform:translateY(14px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+</style>
+</head>
+<body>
+
+  <div class="hero">
+    <p class="role">Java Full Stack Developer &middot; Mobile App Developer</p>
+    <h1>Imamhusen Kalibai</h1>
+    <p>BCA graduate from Rani Channamma University, Belagavi, currently training in Java full stack development. Builds working products end to end — from a published Android app to a locally-run AI assistant — and picks up whatever the project needs along the way.</p>
+  </div>
+
+  <div class="route">
+
+    <div class="stop">
+      <div class="stop-marker"></div>
+      <h2>About</h2>
+      <div class="about-grid">
+        <p><strong>Education:</strong> BCA, Rani Channamma University, Belagavi — completed 2026.</p>
+        <p><strong>Current training:</strong> Java Full Stack Trainee at Tap Academy — Core Java &amp; OOPs, Spring / Spring Boot, MySQL / JDBC, REST APIs, with placement support.</p>
+        <p><strong>Background:</strong> Coursework and project work across mobile app development, web technologies, and database systems, plus a completed full-stack internship.</p>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="stop-marker"></div>
+      <h2>Skills</h2>
+
+      <div class="skill-group">
+        <h3>Languages &amp; core</h3>
+        <div class="chips">
+          <span class="chip">Core Java (OOPs)</span>
+          <span class="chip">Python</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h3>Backend &amp; databases</h3>
+        <div class="chips">
+          <span class="chip">Spring Boot</span>
+          <span class="chip">REST APIs</span>
+          <span class="chip">JDBC</span>
+          <span class="chip">MySQL</span>
+          <span class="chip">SQLite</span>
+          <span class="chip">Firebase Realtime Database</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h3>Frontend &amp; mobile</h3>
+        <div class="chips">
+          <span class="chip">HTML</span>
+          <span class="chip">CSS</span>
+          <span class="chip">Expo</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h3>Tools</h3>
+        <div class="chips">
+          <span class="chip">Git &amp; GitHub</span>
+          <span class="chip">Postman</span>
+          <span class="chip">EAS Build</span>
+          <span class="chip">Ollama (local AI models)</span>
+        </div>
+      </div>
+
+      <div class="skill-group">
+        <h3>Currently learning</h3>
+        <div class="chips">
+          <span class="chip">Java full stack (Tap Academy track)</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="stop-marker"></div>
+      <h2>Projects</h2>
+
+      <div class="project">
+        <div class="project-head">
+          <h3>KSRTC Smart Transit</h3>
+          <span class="badge completed">Completed</span>
+        </div>
+        <p class="tagline">AI-based rural bus arrival prediction system — final semester project, guided by Ms. Bhakti Mahajan.</p>
+        <ul>
+          <li>React Native + Expo mobile app with three role-based logins: Officer, Conductor, and Passenger/Student.</li>
+          <li>Live GPS tracking of buses using expo-location, with an LSTM-inspired formula to predict arrival times.</li>
+          <li>Firebase Realtime Database as the backend, accessed via REST API.</li>
+          <li>Covers the Belagaum–Dharwad route corridor end to end.</li>
+          <li>Published as a working APK via EAS Build; fixed real-world issues along the way (map crashes, Firebase native module conflicts, incorrect time displays).</li>
+          <li>Delivered with a full project report and presentation for academic evaluation.</li>
+        </ul>
+        <div class="stack">
+          <span>React Native</span><span>Expo</span><span>TypeScript</span><span>Firebase</span>
+        </div>
+      </div>
+
+      <div class="project">
+        <div class="project-head">
+          <h3>Nexus — AI Personal Assistant</h3>
+          <span class="badge progress">In progress</span>
+        </div>
+        <p class="tagline">A JARVIS-style personal AI assistant, built to learn Java full stack development while building something real.</p>
+        <ul>
+          <li>Spring Boot backend with a working /api/chat endpoint, powered by Spring AI connected to a local Ollama (llama3.2) model — no external API cost, all data stays on-device.</li>
+          <li>Backend tested end to end via Postman with real responses returned.</li>
+          <li>Planned: voice interaction, face-recognition login with security alerts on unauthorized access, coding/search assistance, and Office (Excel/Word/PPT) automation.</li>
+          <li>Starting on desktop, with a phone version planned next.</li>
+        </ul>
+        <div class="stack">
+          <span>Java</span><span>Spring Boot</span><span>Spring AI</span><span>Ollama</span><span>HTML/CSS/JS</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stop">
+      <div class="stop-marker"></div>
+      <h2>Contact</h2>
+      <div class="contact-list">
+        <div class="contact-item">
+          <span class="label">Email</span>
+          <a href="mailto:imamhusenkalibai285@gmail.com">imamhusenkalibai285@gmail.com</a>
+        </div>
+        <div class="contact-item">
+          <span class="label">LinkedIn</span>
+          <a href="https://www.linkedin.com/in/imamhusen-kalibai-0bb0b142b" target="_blank" rel="noopener">linkedin.com/in/imamhusen-kalibai-0bb0b142b</a>
+        </div>
+        <div class="contact-item">
+          <span class="label">GitHub</span>
+          <a href="https://github.com/imamhusenkalibai-3109" target="_blank" rel="noopener">github.com/imamhusenkalibai-3109</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>Last updated September 2026</footer>
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+/**
+ * Apple Design System Tokens
+ * Source: design.md
+ * Theme: Light ("white room with a single blue switch")
+ */
+
+:root {
+  /* ==========================================================================
+     Colors
+     ========================================================================== */
+  /* Interactive chromatic tokens */
+  --color-apple-blue: #0071e3;    /* Filled action buttons, selected states ONLY */
+  --color-link-blue: #0066cc;     /* Outlined action borders, inline links */
+  --color-signal-blue: #2997ff;   /* Decorative borders, image outlines, icon accents */
+
+  /* Neutral scale */
+  --color-carbon: #1d1d1f;        /* Primary text, heading borders, nav rules, card borders */
+  --color-frost: #f5f5f7;         /* Page canvas, body backgrounds, footer surface */
+  --color-ice: #f4f8fb;           /* Elevated surface washes, subtle fills */
+  --color-smoke: #333333;         /* Secondary text, nav fills, button borders */
+  --color-graphite: #474747;      /* Nav text, nav borders, link borders */
+  --color-ash: #707070;           /* Footer text, list borders, muted body text */
+  --color-mist: #858585;          /* Body borders, icon strokes, hairline rules */
+  --color-onyx: #000000;          /* Heading borders, nav borders, dark promotional surfaces */
+  --color-pebble: #e2e2e5;        /* Button background fills, disabled surfaces */
+
+  /* Hairline border accents */
+  --color-hairline: #d2d2d7;      /* Subtle hairline borders on light surfaces */
+  --color-hairline-dark: #333333; /* Hairline borders on dark nav */
+  --color-card-border: rgba(0, 0, 0, 0.08);
+
+  /* ==========================================================================
+     Typography
+     ========================================================================== */
+  /* Font Families with native SF Pro and high-grade Inter fallback */
+  --font-sf-pro-display: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif;
+  --font-sf-pro-text: 'SF Pro Text', -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'SF Mono', ui-monospace, Menlo, Monaco, Consolas, 'Courier New', monospace;
+
+  /* Typography Scale (Size, Line-Height, Letter-Spacing) */
+  --text-caption: 12px;
+  --leading-caption: 1.33;
+  --tracking-caption: -0.264px;
+
+  --text-body-sm: 14px;
+  --leading-body-sm: 1.29;
+  --tracking-body-sm: -0.224px;
+
+  --text-body: 17px;
+  --leading-body: 1.47;
+  --tracking-body: -0.272px;
+
+  --text-subheading: 21px;
+  --leading-subheading: 1.24;
+  --tracking-subheading: -0.105px;
+
+  --text-heading-sm: 28px;
+  --leading-heading-sm: 1.18;
+  --tracking-heading-sm: 0.196px;
+
+  --text-heading: 40px;
+  --leading-heading: 1.14;
+  --tracking-heading: 0.44px;
+
+  --text-heading-lg: 44px;
+  --leading-heading-lg: 1.18;
+  --tracking-heading-lg: -0.44px;
+
+  --text-display: 56px;
+  --leading-display: 1.07;
+  --tracking-display: 0.616px;
+
+  /* Font Weights */
+  --font-weight-light: 300;     /* Subheads, descriptors, editorial whispers */
+  --font-weight-regular: 400;   /* Body copy, editorial product names, buttons */
+  --font-weight-semibold: 600;  /* Display headlines, nav items, card titles */
+  --font-weight-bold: 700;      /* Reserved for promotional lockups only */
+
+  /* ==========================================================================
+     Spacing & Layout
+     ========================================================================== */
+  --spacing-unit: 4px;
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-56: 56px;
+  --spacing-64: 64px;
+  --spacing-80: 80px;
+  --spacing-96: 96px;
+
+  --page-max-width: 1440px;
+  --content-max-width: 980px;
+  --section-gap: 64px;
+  --card-padding: 24px;
+  --element-gap: 12px;
+
+  /* ==========================================================================
+     Border Radius
+     Strictly 980px (pills/buttons/tags) and 8px (cards/images/inputs)
+     ========================================================================== */
+  --radius-tags: 980px;
+  --radius-buttons: 980px;
+  --radius-full: 980px;
+  --radius-cards: 8px;
+  --radius-images: 8px;
+  --radius-inputs: 8px;
+
+  /* ==========================================================================
+     Shadows (The ONLY shadow allowed in the Apple design language)
+     Used exclusively for product renders to ground them against the canvas.
+     ========================================================================== */
+  --shadow-xl: rgba(0, 0, 0, 0.22) 3px 5px 30px 0px;
+  --shadow-subtle-glow: 0 0 20px rgba(41, 151, 255, 0.15);
+
+  /* ==========================================================================
+     Surfaces
+     ========================================================================== */
+  --surface-canvas: #f5f5f7;
+  --surface-elevated-wash: #f4f8fb;
+  --surface-pebble: #e2e2e5;
+  --surface-pure-white: #ffffff;
+  --surface-nav-dark: rgba(29, 29, 31, 0.92);
+  --surface-mini-nav: rgba(255, 255, 255, 0.88);
+
+  /* Transitions */
+  --transition-fast: 160ms cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-base: 240ms cubic-bezier(0.25, 1, 0.5, 1);
+  --transition-smooth: 400ms cubic-bezier(0.16, 1, 0.3, 1);
+}

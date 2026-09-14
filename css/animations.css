@@ -1,0 +1,722 @@
+/**
+ * Apple Design System Animations & Micro-Interactions
+ * 60fps Hardware-Accelerated Transitions
+ */
+
+/* ==========================================================================
+   Scroll Reveal Animations
+   ========================================================================== */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delay helpers */
+.delay-1 { transition-delay: 100ms; }
+.delay-2 { transition-delay: 200ms; }
+.delay-3 { transition-delay: 300ms; }
+.delay-4 { transition-delay: 400ms; }
+
+/* ==========================================================================
+   Keyframes
+   ========================================================================== */
+
+/* Subtle green status pulse */
+@keyframes pulse-dot {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(52, 199, 89, 0.5);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 6px rgba(52, 199, 89, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(52, 199, 89, 0);
+  }
+}
+
+/* Terminal blink cursor */
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.terminal-cursor {
+  display: inline-block;
+  width: 7px;
+  height: 15px;
+  background-color: var(--color-apple-blue);
+  vertical-align: middle;
+  margin-left: 4px;
+  animation: blink-cursor 1s infinite steps(2, start);
+}
+
+/* KSRTC Live Bus Route pulse */
+@keyframes bus-route-flow {
+  0% { stroke-dashoffset: 40; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.route-path-animated {
+  stroke-dasharray: 6 6;
+  animation: bus-route-flow 2s linear infinite;
+}
+
+@keyframes bus-radar-ping {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2.4);
+    opacity: 0;
+  }
+}
+
+.radar-ping {
+  transform-origin: center;
+  animation: bus-radar-ping 2s cubic-bezier(0.25, 1, 0.5, 1) infinite;
+}
+
+/* ==========================================================================
+   Device Screen Transition Effect
+   ========================================================================== */
+.screen-fade {
+  transition: opacity 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.screen-fade.fade-out {
+  opacity: 0;
+}
+
+/* Ripple micro-interaction on button clicks */
+.btn-pill-filled,
+.btn-pill-outlined,
+.skill-card,
+.quick-pill {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Smooth mobile nav drawer */
+.mobile-nav-drawer {
+  position: fixed;
+  top: 44px;
+  left: 0;
+  right: 0;
+  background: var(--surface-nav-dark);
+  backdrop-filter: saturate(180%) blur(25px);
+  -webkit-backdrop-filter: saturate(180%) blur(25px);
+  border-bottom: 1px solid var(--color-hairline-dark);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.25s ease;
+  z-index: 999;
+}
+
+.mobile-nav-drawer.open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobile-nav-drawer a {
+  color: var(--color-frost);
+  font-size: 16px;
+  font-weight: var(--font-weight-regular);
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.mobile-nav-drawer a:last-child {
+  border-bottom: none;
+}
+
+/* ==========================================================================
+   Ambient Floating Bubbles & Background Interactivity
+   ========================================================================== */
+
+/* Water ripple GPU-accelerated interactive canvas */
+#water-ripple-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Ambient Floating Bubbles Backdrop Layer */
+.bubbles-ambient-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+}
+
+/* Apple-Style Glass Floating Bubble */
+.floating-bubble {
+  position: absolute;
+  top: 0;
+  width: var(--bubble-size, 48px);
+  height: var(--bubble-size, 48px);
+  border-radius: 50%;
+  pointer-events: auto !important;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  position: absolute;
+}
+
+/* Expanded Hitbox so clicks are effortless and never missed */
+.floating-bubble::before {
+  content: "";
+  position: absolute;
+  top: -16px;
+  left: -16px;
+  right: -16px;
+  bottom: -16px;
+  border-radius: 50%;
+  pointer-events: auto;
+}
+  opacity: var(--bubble-opacity, 0.28);
+  transition: filter 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+  will-change: transform, opacity;
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(235, 246, 255, 0.6) 25%,
+    rgba(165, 215, 255, 0.42) 55%,
+    rgba(0, 113, 227, 0.3) 80%,
+    rgba(0, 113, 227, 0.5) 100%
+  );
+  border: 1.2px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 
+    0 6px 22px rgba(0, 113, 227, 0.16),
+    inset 0 2px 7px rgba(255, 255, 255, 0.95),
+    inset 0 -4px 10px rgba(0, 113, 227, 0.25);
+}
+
+.floating-bubble.bubble-blue {
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(235, 246, 255, 0.65) 25%,
+    rgba(160, 210, 255, 0.46) 55%,
+    rgba(0, 113, 227, 0.35) 80%,
+    rgba(0, 113, 227, 0.55) 100%
+  );
+  border: 1.2px solid rgba(255, 255, 255, 0.92);
+  box-shadow: 
+    0 8px 24px rgba(0, 113, 227, 0.18),
+    inset 0 2px 8px rgba(255, 255, 255, 0.98),
+    inset 0 -5px 12px rgba(0, 113, 227, 0.28);
+}
+
+.floating-bubble.bubble-cyan {
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgba(255, 255, 255, 0.98) 0%,
+    rgba(230, 250, 255, 0.65) 25%,
+    rgba(170, 235, 255, 0.46) 55%,
+    rgba(41, 151, 255, 0.32) 80%,
+    rgba(0, 113, 227, 0.48) 100%
+  );
+  border: 1.2px solid rgba(255, 255, 255, 0.92);
+  box-shadow: 
+    0 8px 24px rgba(41, 151, 255, 0.18),
+    inset 0 2px 8px rgba(255, 255, 255, 0.98),
+    inset 0 -5px 12px rgba(41, 151, 255, 0.24);
+}
+
+.floating-bubble.bubble-frost {
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(248, 252, 255, 0.7) 25%,
+    rgba(210, 228, 248, 0.45) 55%,
+    rgba(175, 202, 230, 0.3) 80%,
+    rgba(140, 175, 215, 0.42) 100%
+  );
+  border: 1.2px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 
+    0 8px 24px rgba(100, 145, 195, 0.15),
+    inset 0 2px 8px rgba(255, 255, 255, 1),
+    inset 0 -5px 12px rgba(135, 175, 215, 0.24);
+}
+
+/* Apple Glass Primary Specular Reflection */
+.floating-bubble::before {
+  content: "";
+  position: absolute;
+  top: 14%;
+  left: 20%;
+  width: 28%;
+  height: 18%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  transform: rotate(-35deg);
+  filter: blur(0.4px);
+  pointer-events: none;
+}
+
+/* Secondary Lower Bounce Glint */
+.floating-bubble::after {
+  content: "";
+  position: absolute;
+  bottom: 14%;
+  right: 22%;
+  width: 18%;
+  height: 10%;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  transform: rotate(35deg);
+  pointer-events: none;
+}
+
+/* Hover Interaction: Responsive glow & subtle scale up */
+.floating-bubble:hover {
+  filter: brightness(1.25) drop-shadow(0 0 12px rgba(0, 113, 227, 0.45));
+  opacity: 0.65 !important;
+}
+
+/* 5 Natural Sinusoidal Drift & Sway Keyframes (from 105vh to -130px) */
+@keyframes bubbleFloat1 {
+  0% {
+    transform: translateY(105vh) translateX(0) scale(0.96);
+    opacity: 0;
+  }
+  5% {
+    opacity: var(--bubble-opacity, 0.24);
+  }
+  25% {
+    transform: translateY(75vh) translateX(24px) scale(1.02);
+  }
+  50% {
+    transform: translateY(50vh) translateX(-22px) scale(0.98);
+  }
+  75% {
+    transform: translateY(25vh) translateX(22px) scale(1.03);
+  }
+  94% {
+    opacity: var(--bubble-opacity, 0.24);
+  }
+  100% {
+    transform: translateY(-130px) translateX(-12px) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes bubbleFloat2 {
+  0% {
+    transform: translateY(105vh) translateX(0) scale(1);
+    opacity: 0;
+  }
+  5% {
+    opacity: var(--bubble-opacity, 0.24);
+  }
+  28% {
+    transform: translateY(72vh) translateX(-28px) scale(0.96);
+  }
+  52% {
+    transform: translateY(48vh) translateX(26px) scale(1.04);
+  }
+  78% {
+    transform: translateY(22vh) translateX(-18px) scale(0.98);
+  }
+  94% {
+    opacity: var(--bubble-opacity, 0.24);
+  }
+  100% {
+    transform: translateY(-130px) translateX(16px) scale(1.02);
+    opacity: 0;
+  }
+}
+
+@keyframes bubbleFloat3 {
+  0% {
+    transform: translateY(105vh) translateX(0) scale(0.94);
+    opacity: 0;
+  }
+  5% {
+    opacity: var(--bubble-opacity, 0.22);
+  }
+  30% {
+    transform: translateY(70vh) translateX(18px) scale(1.01);
+  }
+  55% {
+    transform: translateY(45vh) translateX(-16px) scale(0.99);
+  }
+  80% {
+    transform: translateY(20vh) translateX(18px) scale(1.02);
+  }
+  94% {
+    opacity: var(--bubble-opacity, 0.22);
+  }
+  100% {
+    transform: translateY(-130px) translateX(-8px) scale(0.96);
+    opacity: 0;
+  }
+}
+
+@keyframes bubbleFloat4 {
+  0% {
+    transform: translateY(105vh) translateX(0) scale(1.02);
+    opacity: 0;
+  }
+  5% {
+    opacity: var(--bubble-opacity, 0.25);
+  }
+  24% {
+    transform: translateY(76vh) translateX(-24px) scale(0.97);
+  }
+  48% {
+    transform: translateY(52vh) translateX(22px) scale(1.02);
+  }
+  72% {
+    transform: translateY(26vh) translateX(-22px) scale(0.97);
+  }
+  94% {
+    opacity: var(--bubble-opacity, 0.25);
+  }
+  100% {
+    transform: translateY(-130px) translateX(14px) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes bubbleFloat5 {
+  0% {
+    transform: translateY(105vh) translateX(0) scale(0.97);
+    opacity: 0;
+  }
+  5% {
+    opacity: var(--bubble-opacity, 0.23);
+  }
+  33% {
+    transform: translateY(68vh) translateX(30px) scale(1.03);
+  }
+  60% {
+    transform: translateY(42vh) translateX(-26px) scale(0.97);
+  }
+  82% {
+    transform: translateY(18vh) translateX(20px) scale(1.01);
+  }
+  94% {
+    opacity: var(--bubble-opacity, 0.23);
+  }
+  100% {
+    transform: translateY(-130px) translateX(-15px) scale(0.98);
+    opacity: 0;
+  }
+}
+
+/* Pop Animation on Click */
+.floating-bubble.bubble-popping {
+  animation: bubblePop 0.32s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
+  pointer-events: none;
+}
+
+@keyframes bubblePop {
+  0% {
+    transform: scale(1);
+    opacity: var(--bubble-opacity, 0.24);
+  }
+  35% {
+    transform: scale(1.45);
+    opacity: 0.6;
+    filter: brightness(1.4);
+  }
+  100% {
+    transform: scale(1.85);
+    opacity: 0;
+    filter: brightness(1.8);
+  }
+}
+
+/* Expanding Shockwave Ring at Pop Origin */
+.bubble-pop-ring {
+  position: fixed;
+  width: 24px;
+  height: 24px;
+  margin-left: -12px;
+  margin-top: -12px;
+  border-radius: 50%;
+  border: 2px solid rgba(41, 151, 255, 0.9);
+  pointer-events: none;
+  z-index: 25;
+  animation: popRingExpand 0.38s cubic-bezier(0.12, 0.8, 0.32, 1) forwards;
+}
+
+@keyframes popRingExpand {
+  0% {
+    transform: scale(0.2);
+    opacity: 1;
+    border-color: rgba(41, 151, 255, 0.95);
+  }
+  50% {
+    opacity: 0.7;
+    border-color: rgba(0, 113, 227, 0.6);
+  }
+  100% {
+    transform: scale(3.2);
+    opacity: 0;
+    border-color: transparent;
+  }
+}
+
+/* Expanding Shockwave Ring at Pop Origin */
+.bubble-pop-ring.frozen {
+  animation: none !important;
+  transform: scale(3.2) !important;
+  opacity: 0.85 !important;
+}
+
+/* ==========================================================================
+   Holi Rain of Color Effect & Downward Cascading Droplets
+   ========================================================================== */
+.color-rain-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 25;
+  overflow: hidden;
+}
+
+/* Momentary vivid Holi color flash on the clicked bubble */
+.bubble-color-burst {
+  pointer-events: none !important;
+  animation: bubbleColorBurst 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards !important;
+}
+
+@keyframes bubbleColorBurst {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+    filter: brightness(1.35) saturate(1.8);
+  }
+  35% {
+    transform: scale(1.35);
+    opacity: 0.95;
+    filter: brightness(1.5) saturate(2.2);
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+    filter: brightness(1.9);
+  }
+}
+
+/* Rain shower particle burst container */
+.color-rain-container {
+  position: absolute;
+  pointer-events: none;
+  width: 0;
+  height: 0;
+  transform: translate(0, 0);
+}
+
+/* Individual falling rain droplet under simulated gravity */
+.color-rain-droplet {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--drop-w, 5px);
+  height: var(--drop-h, 11px);
+  border-radius: 50% 50% 60% 60% / 40% 40% 70% 70%;
+  pointer-events: none;
+  background-color: var(--drop-color);
+  box-shadow: 0 2px 8px var(--drop-glow), inset 1px 1px 2px rgba(255, 255, 255, 0.85);
+  animation: dropletRainFall var(--fall-dur, 0.95s) cubic-bezier(0.25, 0.46, 0.45, 0.94) var(--fall-delay, 0s) forwards;
+  will-change: transform, opacity;
+}
+
+@keyframes dropletRainFall {
+  0% {
+    transform: translate(-50%, -50%) scale(0.6);
+    opacity: 0.98;
+  }
+  15% {
+    /* Natural fountain arc upward/outward before gravity takes over */
+    transform: translate(calc(-50% + var(--dx) * 0.35), calc(-50% + var(--peak-y, -15px))) scale(1.1);
+    opacity: 0.98;
+  }
+  45% {
+    opacity: 0.92;
+  }
+  75% {
+    opacity: 0.70;
+  }
+  100% {
+    /* Downward falling motion under gravity */
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--fall-dist, 160px))) scale(0.35);
+    opacity: 0;
+  }
+}
+
+/* Central momentary color ripple pulse at burst point */
+.color-rain-flash {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  margin-left: -18px;
+  margin-top: -18px;
+  border-radius: 50%;
+  border: 2px solid var(--burst-color);
+  background: radial-gradient(circle, var(--burst-glow) 0%, transparent 70%);
+  pointer-events: none;
+  animation: rainFlashExpand 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes rainFlashExpand {
+  0% {
+    transform: scale(0.3);
+    opacity: 0.95;
+  }
+  100% {
+    transform: scale(2.6);
+    opacity: 0;
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .floating-bubble,
+  .ambient-mesh-canvas,
+  .ambient-orb {
+    animation-duration: 60s !important;
+  }
+}
+
+/* ==========================================================================
+   Full-Page Animated Mesh & Ambient Lighting System
+   Subtle dynamic gradient flow and drifting aura orbs across all sections
+   ========================================================================== */
+.ambient-mesh-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+  background: 
+    radial-gradient(ellipse 70% 60% at 10% 15%, rgba(0, 113, 227, 0.10) 0%, transparent 65%),
+    radial-gradient(ellipse 65% 55% at 90% 25%, rgba(41, 151, 255, 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 75% 65% at 20% 85%, rgba(94, 92, 230, 0.08) 0%, transparent 65%),
+    radial-gradient(ellipse 60% 50% at 85% 90%, rgba(0, 113, 227, 0.09) 0%, transparent 60%),
+    linear-gradient(145deg, #e7f1f9 0%, #eff6fb 25%, #e6f0f8 50%, #f0f5fa 75%, #e7f1f9 100%);
+  background-size: 240% 240%;
+  animation: ambientMeshShift 26s ease-in-out infinite alternate;
+}
+
+@keyframes ambientMeshShift {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 50% 100%;
+  }
+}
+
+/* Drifting Liquid Aura Orbs */
+.ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(85px);
+  pointer-events: none;
+  will-change: transform;
+}
+
+.ambient-orb-1 {
+  width: clamp(380px, 35vw, 600px);
+  height: clamp(380px, 35vw, 600px);
+  background: radial-gradient(circle, rgba(41, 151, 255, 0.22) 0%, rgba(0, 113, 227, 0.07) 60%, transparent 80%);
+  top: -6%;
+  left: 12%;
+  animation: orbDrift1 20s ease-in-out infinite alternate;
+}
+
+.ambient-orb-2 {
+  width: clamp(440px, 40vw, 700px);
+  height: clamp(440px, 40vw, 700px);
+  background: radial-gradient(circle, rgba(94, 92, 230, 0.16) 0%, rgba(41, 151, 255, 0.08) 55%, transparent 80%);
+  bottom: -10%;
+  right: 6%;
+  animation: orbDrift2 26s ease-in-out infinite alternate;
+}
+
+.ambient-orb-3 {
+  width: clamp(340px, 30vw, 520px);
+  height: clamp(340px, 30vw, 520px);
+  background: radial-gradient(circle, rgba(0, 113, 227, 0.18) 0%, rgba(52, 199, 89, 0.06) 60%, transparent 80%);
+  top: 42%;
+  left: -8%;
+  animation: orbDrift3 24s ease-in-out infinite alternate;
+}
+
+@keyframes orbDrift1 {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(60px, 45px) scale(1.08);
+  }
+  100% {
+    transform: translate(-40px, 80px) scale(0.95);
+  }
+}
+
+@keyframes orbDrift2 {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-70px, -50px) scale(1.1);
+  }
+  100% {
+    transform: translate(50px, -75px) scale(0.94);
+  }
+}
+
+@keyframes orbDrift3 {
+  0% {
+    transform: translate(0, 0) scale(0.96);
+  }
+  50% {
+    transform: translate(55px, -60px) scale(1.06);
+  }
+  100% {
+    transform: translate(30px, 40px) scale(1.02);
+  }
+}
